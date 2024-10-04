@@ -19,16 +19,16 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'  # Adjust to your .NET version
+        dotnet-version: '6.0.x' # or your version
+
+    - name: Install NuGet CLI
+      run: choco install nuget.commandline
 
     - name: Restore NuGet packages
-      run: dotnet restore SeleniumTestCsharp.sln
+      run: nuget restore SeleniumTestCsharp.sln
 
-    - name: Build solution
+    - name: Build the project
       run: dotnet build --configuration Release
 
-    - name: List build outputs
-      run: dir bin\Debug\net6.0  # Adjust if using another framework
-
     - name: Run tests
-      run: dotnet test --no-build --verbosity detailed
+      run: dotnet test --no-build --verbosity normal
