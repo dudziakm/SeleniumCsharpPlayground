@@ -1,4 +1,4 @@
-name: Selenium Tests
+name: Run Selenium C# Tests
 
 on:
   push:
@@ -7,28 +7,42 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: windows-latest
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu, windows, macos ]  # Run tests on multiple OSes
+    runs-on: ${{ matrix.os }}-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v3
+    - name: Set up .NET environment
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '6.0.x' # or your version
+        dotnet-version: '6.x'  # Specify your .NET version
 
-    - name: Install NuGet CLI
-      run: choco install nuget.commandline
+    # Optional: For Ubuntu - Start virtual framebuffer for GUI-based tests
+    - name: Start Xvfb for Ubuntu
+      if: matrix.os == 'ubuntu'
+      run: Xvfb :99 &
 
     - name: Restore NuGet packages
-      run: nuget restore SeleniumTestCsharp.sln
+      run: dotnet restore SeleniumTestCsharp.sln
 
     - name: Build the project
       run: dotnet build --configuration Release
 
-    - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+    - name: Run Selenium tests
+      run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test_results.trx"
+
+    # Optional: Upload test results to GitHub Actions
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Test Results
+        path: test_results.trx

@@ -152,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".github\workflows\selenium-test-basic_yml" />
     <None Include=".github\workflows\selenium-test.yml" />
     <None Include="app.config" />
     <None Include="packages.config" />
