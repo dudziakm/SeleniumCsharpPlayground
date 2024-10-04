@@ -19,19 +19,19 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'  # Change to your .NET version
-
-    - name: Install required .NET workloads
-      run: dotnet workload restore
+        dotnet-version: '6.0.x'  # Specify your .NET version here
 
     - name: Clean solution
       run: dotnet clean
+
+    - name: Restore dependencies
+      run: dotnet restore
 
     - name: Build solution
       run: dotnet build --configuration Release
 
     - name: List build outputs
-      run: dir bin\Debug\net6.0  # Adjust if targeting a different framework
+      run: dir bin\Debug\net6.0  # Adjust if using another framework
 
     - name: Run tests
-      run: dotnet test --no-build --verbosity detailed --logger "trx;LogFileName=test_results.trx"
+      run: dotnet test --no-build --verbosity detailed
