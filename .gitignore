@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+*.suo
+*.csproj.user
+
+# Compile
+bin/
+obj/
+
+# NuGet
+packages/
+
+# Testing
+TestResults/
+
+# Temporary files
+TestStore/
