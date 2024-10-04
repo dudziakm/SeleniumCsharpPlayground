@@ -19,13 +19,10 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'  # Specify your .NET version here
+        dotnet-version: '6.0.x'  # Adjust to your .NET version
 
-    - name: Clean solution
-      run: dotnet clean
-
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore NuGet packages
+      run: dotnet restore SeleniumTestCsharp.sln
 
     - name: Build solution
       run: dotnet build --configuration Release
