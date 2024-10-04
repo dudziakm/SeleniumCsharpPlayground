@@ -143,14 +143,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assembly\Browsers.cs" />
     <Compile Include="Assembly\Pages.cs" />
     <Compile Include="Pages\Home.cs" />
-    <Compile Include="Tests\BasicTest.cs" />
     <Compile Include="Tests\LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".github\workflows\selenium-test.yml" />
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
